@@ -1,0 +1,26 @@
+img {
+    width: 200px;
+    height: auto;
+}
+
+.recipe-flexcontainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: flex-start;
+    width: 40%;
+    margin: 0 auto;
+}
+
+.recipe-flexcontainer>a {
+    text-decoration: none;
+    color: black;
+}
+
+.recipe-flexcontainer>a>div {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+}
