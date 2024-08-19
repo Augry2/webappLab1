@@ -24,3 +24,21 @@ img {
     width: 200px;
     text-align: center;
 }
+
+header {
+    text-align: center;
+    margin: 20px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #343a40;
+    font-weight: bold;
+}
