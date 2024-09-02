@@ -1,39 +1,56 @@
-<form id="userForm">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
-    <label for="passWord">Password:</label>
-    <input type="text" id="passWord" name="passWord" required>
-    <button type="submit">Save</button>
-</form>
-
-<script>
-    document.getElementById('userForm').addEventListener('submit', function(event) {
-        event.preventDefault();
-        
-        const name = document.getElementById('name').value;
-        const password = document.getElementById('passWord').value;
 
 
-        // get users as json, convert it to javascript object, or empty object
-        let users = JSON.parse(localStorage.getItem('users')) || {};
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
 
-        // Check if the username already exists
-        if (users[name]) {
-            alert('Username already exists. Please choose a different name.');
-            return;
-        }
+    <form id="userForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="passWord">Password:</label>
+        <input type="text" id="passWord" name="passWord" required>
+        <button type="submit">Save</button>
+    </form>
+    
+    <script>
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const password = document.getElementById('passWord').value;
+    
+    
+            // get users as json, convert it to javascript object, or empty object
+            let users = JSON.parse(localStorage.getItem('users')) || {};
+    
+            // Check if the username already exists
+            if (users[name]) {
+                alert('Username already exists. Please choose a different name.');
+                return;
+            }
+    
+            // Save the new user data
+            users[name] = { password: password }; // adds new entry to the users object with name as key, and an object password as value
+            localStorage.setItem('users', JSON.stringify(users));
+            
 
-        // Save the new user data
-        users[name] = { password: password }; // adds new entry to the users object with name as key, and an object password as value
-        localStorage.setItem('users', JSON.stringify(users));
-        
-        
-        alert('User data saved!');
-        window.location.href = 'index.html'; // Redirect to index.html
-
-        // "August": {
-        //   "password": "actualPassword"
-        // }, 
-
-    });
-</script>
+            // Log the users object to verify
+            console.log('Users after saving:', users);
+            
+            alert('User data saved!');
+            window.location.href = 'index.html'; // Redirect to index.html
+    
+            // "August": {
+            //   "password": "actualPassword"
+            // }, 
+    
+        });
+    </script>
+    
+</body>
+</html>
