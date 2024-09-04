@@ -7,15 +7,27 @@
     margin: 0 auto;
 }
 
-.recipeIngredient-flexcontainer>div {
+.ingredients {
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 10px;
 }
 
-.ingredients {
-    flex: 1 1 auto; /* Allow the div to grow and shrink as needed */
-    max-width: 31%; /* Set the maximum width */
+.large-image {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.instructions {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.ingredientAndPic-flexcontainer {
+    display: flex; /* Use flexbox layout */
+    gap: 20px; /* Optional: Add some space between the divs */
 }
 
 .large-image {
