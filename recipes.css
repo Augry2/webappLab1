@@ -16,7 +16,7 @@
 .large-image {
     border: 1px solid #ccc;
     border-radius: 10px;
-    padding: 10px;
+    /*padding: 10px;*/
 }
 
 .instructions {
@@ -35,7 +35,7 @@
     height: auto;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 900px) {
     .foodImage {
         display: none;
     }
