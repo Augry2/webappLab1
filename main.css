@@ -17,7 +17,7 @@ header {
 nav {
     display: flex;
     justify-content: center;
-    width: 40%;
+    width: 48%;
     margin: 0 auto;
 }
 
@@ -44,7 +44,7 @@ main {
     flex-wrap: wrap;
     gap: 30px;
     justify-content: space-between;
-    width: 40%;
+    width: 48%;
     margin: 0 auto;
 }
 
@@ -64,7 +64,7 @@ main {
 .hero {
     gap: 30px;
     justify-content: flex-start;
-    width: 40%;
+    width: 48%;
     margin: 0 auto;
 
 }
@@ -94,3 +94,13 @@ footer {
     flex-direction: column;
     align-items: center;
 }   
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    header {
+        position: static;
+    }
+    nav input[type="text"] {
+        display: none !important; /* Hide the search box */
+    }
+}
