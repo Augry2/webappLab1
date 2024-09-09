@@ -7,6 +7,27 @@
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="recipes.css">
     <title>Meatballs</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retrieve the logged-in user's name from localStorage
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                // Update the username placeholder
+
+                document.getElementById('username-placeholder').textContent = loggedInUser;
+                document.getElementById('create-account-link').style.display = 'none';
+                document.getElementById('login-link').style.display = 'none';
+                document.getElementById('sign-out-link').style.display = 'block';
+            }
+        });
+
+        function signOut() {
+            // Remove the logged-in user from localStorage
+            localStorage.removeItem('loggedInUser');
+            // Reload the page to update the UI
+            location.reload();
+        }
+    </script>
 </head>
 
 <body>
@@ -16,8 +37,11 @@
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <input type="text" placeholder="search recipe..">
-                <li><a href="createAccount.html">Create Account</a></li>
-                <li><a href="logInPage.html">Log In</a></li>
+                <li id="create-account-link"><a href="createAccount.html">Create Account</a></li>
+                <li id="login-link"><a href="logInPage.html">Log In</a></li>
+                <li id="username-placeholder"></li>
+                <li id="sign-out-link" style="display: none;"><a href="#" onclick="signOut()">Sign Out</a></li>
+
             </ul>
         </nav>
     </header>
