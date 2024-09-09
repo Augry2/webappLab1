@@ -18,67 +18,69 @@
     </form>
 
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('userForm').addEventListener('submit', function (event) {
+                event.preventDefault();
 
+                const name = document.getElementById('name').value;
+                const password = document.getElementById('passWord').value;
+                var namePattern = /^[a-zA-Z0-9]{4,12}$/;
+                var passwordPattern = /^[a-zA-Z0-9]{4,12}$/;
 
-        document.getElementById('userForm').addEventListener('submit', function (event) {
-            event.preventDefault();
+                let users = JSON.parse(localStorage.getItem('users')) || {};
 
-            const name = document.getElementById('name').value;
-            const password = document.getElementById('passWord').value;
-            var namePattern = /^[a-zA-Z0-9]{4,12}$/;
-            var passwordPattern = /^[a-zA-Z0-9]{4,12}$/;
+                console.log('Entered Username:', name);
+                console.log('Entered Password:', password);
+                console.log('Stored Users:', users);
 
-            let users = JSON.parse(localStorage.getItem('users')) || {};
+                if (!namePattern.test(name)) {
+                    alert('Invalid username. It must be 4-12 characters long and contain only letters and numbers.');
+                    return;
+                }
 
-            console.log('Entered Username:', name);
-            console.log('Entered Password:', password);
-            console.log('Stored Users:', users);
+                if (!passwordPattern.test(password)) {
+                    alert('Invalid password. It must be 4-12 characters long and contain only letters and numbers.');
+                    return;
+                }
 
-            if (!namePattern.test(name)) {
-                alert('Invalid username. It must be 4-12 characters long and contain only letters and numbers.');
-                return;
+                // Check if the entered username and password match any stored users
+                if (users[name] && users[name].password === password) {
+                    // Store the logged-in user's name in localStorage
+                    console.log('Storing loggedInUser:', name);
+                    localStorage.setItem('loggedInUser', name);
+
+                    alert('Logged in as ' + name);
+                    window.location.href = 'index.html'; // Redirect to index.html
+                } else {
+                    alert('Invalid login credentials');
+                }
+            });
+
+            // Function to fetch random users
+            function fetchRandomUsers() {
+                fetch('https://randomuser.me/api/?results=5')
+                    .then(response => response.json()) // turns response into json
+                    .then(data => { // does something with the json
+                        const fetchedUsers = data.results.reduce((acc, user) => {  // reduce the users to fit my users list, only username and password
+                            acc[user.login.username] = { password: user.login.password };
+                            return acc;
+                        }, {});
+
+                        // Merge fetched users with existing users
+                        let existingUsers = JSON.parse(localStorage.getItem('users')) || {};
+                        let mergedUsers = { ...existingUsers, ...fetchedUsers };
+
+                        // Store merged users in localStorage
+                        localStorage.setItem('users', JSON.stringify(mergedUsers));
+                        console.log('Merged Users:', mergedUsers);
+                    })
+                    .catch(error => console.error('Error fetching random users:', error));
             }
 
-            if (!passwordPattern.test(password)) {
-                alert('Invalid password. It must be 4-12 characters long and contain only letters and numbers.');
-                return;
-            }
-
-            
-
-            // Store the logged-in user's name in localStorage
-            console.log('Storing loggedInUser:', name);
-            localStorage.setItem('loggedInUser', name);
-
-            alert('Logged in as ' + name);
-            window.location.href = 'index.html'; // Redirect to index.html
-
+            // Fetch random users when the page loads
+            fetchRandomUsers();
         });
-
-        // Function to fetch random users
-        function fetchRandomUsers() {
-            fetch('https://randomuser.me/api/?results=5')
-                .then(response => response.json()) // turns response into json
-                .then(data => { // does something with the json
-                    const fetchedUsers = data.results.reduce((acc, user) => {  // reduce the users to fit my users list, only username and password
-                        acc[user.login.username] = { password: user.login.password };
-                        return acc;
-                    }, {});
-
-                    // Merge fetched users with existing users
-                    let existingUsers = JSON.parse(localStorage.getItem('users')) || {};
-                    let mergedUsers = { ...existingUsers, ...fetchedUsers };
-
-                    // Store merged users in localStorage
-                    localStorage.setItem('users', JSON.stringify(mergedUsers));
-                    console.log('Merged Users:', mergedUsers);
-                })
-                .catch(error => console.error('Error fetching random users:', error));
-        }
-
-        // Fetch random users when the page loads
-        window.onload = fetchRandomUsers;
-
-
     </script>
 </body>
+
+</html>
