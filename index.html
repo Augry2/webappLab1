@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <title>Document</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retrieve the logged-in user's name from localStorage
+            const loggedInUser = localStorage.getItem('loggedInUser');
+            if (loggedInUser) {
+                // Update the username placeholder
+                document.getElementById('username-placeholder').textContent = loggedInUser;
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -18,6 +28,8 @@
                     <input type="text" placeholder="search recipe..">
                     <li><a href="createAccount.html">Create Account</a></li>
                     <li><a href="logInPage.html">Log In</a></li>
+                    <li id="username-placeholder"></li>
+
                 </ul>
             </nav>
         </header>

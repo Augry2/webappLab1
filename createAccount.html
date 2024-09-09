@@ -23,18 +23,22 @@
             
             const name = document.getElementById('name').value;
             const password = document.getElementById('passWord').value;
-    
+            var namePattern = /^[a-zA-Z0-9]{4,12}$/;
+            var passwordPattern = /^[a-zA-Z0-9]{4,12}$/;
     
             // get users as json, convert it to javascript object, or empty object
             let users = JSON.parse(localStorage.getItem('users')) || {};
     
-            // Check if the username already exists
-            if (users[name]) {
-                alert('Username already exists. Please choose a different name.');
+            if (!namePattern.test(name)) {
+                alert('Invalid username. It must be 4-12 characters long and contain only letters and numbers.');
                 return;
             }
 
-            // todo regex, lägg scriptet på startsidan istället asd abc
+            if (!passwordPattern.test(password)) {
+                alert('Invalid password. It must be 4-12 characters long and contain only letters and numbers.');
+                return;
+            }
+
     
             // Save the new user data
             users[name] = { password: password }; // adds new entry to the users object with name as key, and an object password as value

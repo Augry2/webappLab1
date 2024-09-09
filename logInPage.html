@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    
+
     <form id="userForm">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
@@ -25,6 +25,8 @@
 
             const name = document.getElementById('name').value;
             const password = document.getElementById('passWord').value;
+            var namePattern = /^[a-zA-Z0-9]{4,12}$/;
+            var passwordPattern = /^[a-zA-Z0-9]{4,12}$/;
 
             let users = JSON.parse(localStorage.getItem('users')) || {};
 
@@ -32,12 +34,25 @@
             console.log('Entered Password:', password);
             console.log('Stored Users:', users);
 
-            if (users[name] && users[name].password === password) {
-                alert('Login successful!');
-                window.location.href = 'index.html'; // Redirect to a dashboard or another page
-            } else {
-                alert('Invalid username or password.');
+            if (!namePattern.test(name)) {
+                alert('Invalid username. It must be 4-12 characters long and contain only letters and numbers.');
+                return;
             }
+
+            if (!passwordPattern.test(password)) {
+                alert('Invalid password. It must be 4-12 characters long and contain only letters and numbers.');
+                return;
+            }
+
+            
+
+            // Store the logged-in user's name in localStorage
+            console.log('Storing loggedInUser:', name);
+            localStorage.setItem('loggedInUser', name);
+
+            alert('Logged in as ' + name);
+            window.location.href = 'index.html'; // Redirect to index.html
+
         });
 
         // Function to fetch random users
